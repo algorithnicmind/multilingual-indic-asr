@@ -1,0 +1,162 @@
+# Multilingual Indic ASR Configuration
+# =====================================
+
+# General Settings
+project:
+  name: "Multilingual Indic ASR"
+  version: "1.0.0"
+  languages:
+    - english
+    - hindi
+    - odia
+
+# Audio Configuration
+audio:
+  sample_rate: 16000
+  channels: 1 # Mono
+  bit_depth: 16
+  format: "wav"
+  max_duration: 30 # seconds
+  min_duration: 0.5 # seconds
+
+# Preprocessing Settings
+preprocessing:
+  normalize: true
+  remove_silence: true
+  silence_threshold: 0.01
+  silence_min_duration: 0.1 # seconds
+  pre_emphasis: 0.97
+
+# Feature Extraction (MFCC)
+features:
+  mfcc:
+    n_mfcc: 13
+    n_fft: 512
+    hop_length: 160 # 10ms at 16kHz
+    win_length: 400 # 25ms at 16kHz
+    n_mels: 40
+    fmin: 20
+    fmax: 8000
+  use_delta: true
+  use_delta_delta: true
+  normalize_features: true
+
+# Language Identification
+language_id:
+  model_type: "svm" # Options: svm, neural
+  svm:
+    kernel: "rbf"
+    C: 1.0
+    gamma: "scale"
+  neural:
+    hidden_size: 128
+    num_layers: 2
+    dropout: 0.3
+  training:
+    epochs: 50
+    batch_size: 32
+    learning_rate: 0.001
+    validation_split: 0.2
+
+# Acoustic Model
+acoustic_model:
+  architecture: "cnn_bilstm" # Options: hmm_gmm, cnn_bilstm
+  cnn:
+    num_layers: 3
+    channels: [32, 64, 128]
+    kernel_size: 3
+    stride: 1
+    padding: 1
+  lstm:
+    hidden_size: 256
+    num_layers: 3
+    bidirectional: true
+    dropout: 0.3
+  output:
+    type: "ctc" # Connectionist Temporal Classification
+  training:
+    epochs: 100
+    batch_size: 16
+    learning_rate: 0.0003
+    weight_decay: 0.0001
+    gradient_clip: 5.0
+    early_stopping:
+      patience: 10
+      min_delta: 0.001
+
+# Language Model
+language_model:
+  type: "ngram" # Options: ngram, rnn
+  ngram:
+    order: 3 # Trigram
+    smoothing: "kneser_ney"
+    discount: 0.75
+  rnn:
+    hidden_size: 256
+    num_layers: 2
+    dropout: 0.3
+  vocabulary:
+    max_size: 50000
+    min_frequency: 2
+    unk_token: "<UNK>"
+    pad_token: "<PAD>"
+    sos_token: "<SOS>"
+    eos_token: "<EOS>"
+
+# Decoder Settings
+decoder:
+  type: "beam_search" # Options: greedy, viterbi, beam_search
+  beam_search:
+    beam_width: 10
+    alpha: 0.6 # Language model weight
+    beta: 0.0 # Word insertion penalty
+  viterbi:
+    prune_threshold: 0.001
+  output:
+    remove_blanks: true
+    merge_repeated: true
+
+# Training Configuration
+training:
+  device: "auto" # Options: auto, cpu, cuda
+  num_workers: 4
+  pin_memory: true
+  seed: 42
+  mixed_precision: true
+  checkpointing:
+    save_best: true
+    save_interval: 5
+    max_checkpoints: 5
+
+# Evaluation
+evaluation:
+  metrics:
+    - wer # Word Error Rate
+    - cer # Character Error Rate
+    - accuracy
+  test_split: 0.1
+
+# Paths
+paths:
+  data:
+    raw: "data/raw"
+    processed: "data/processed"
+    transcripts: "data/transcripts"
+  models:
+    language_id: "models/language_id"
+    acoustic: "models/acoustic"
+    language: "models/language"
+  logs: "logs"
+  outputs: "outputs"
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/training.log"
+
+# Inference
+inference:
+  batch_size: 1
+  use_gpu: true
+  output_format: "json" # Options: json, text
