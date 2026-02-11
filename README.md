@@ -442,9 +442,9 @@ Detailed documentation is available in the `/docs` folder:
 
 ## 🔮 Future Roadmap
 
-- [ ] **Phase 1**: Core pipeline implementation
-- [ ] **Phase 2**: Basic model training
-- [ ] **Phase 3**: UI development
+- [x] **Phase 1**: Core pipeline implementation
+- [x] **Phase 2**: Basic model training
+- [x] **Phase 3**: UI development
 - [ ] **Phase 4**: Optimization and evaluation
 - [ ] **Phase 5**: Real-time microphone support
 - [ ] **Phase 6**: Additional language support
