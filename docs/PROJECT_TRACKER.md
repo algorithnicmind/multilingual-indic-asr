@@ -13,17 +13,17 @@ You have effectively compressed the coding phase of the 12-week plan into Day 1.
 | Phase  | Module                  | Code Status                           | Execution Status                           |
 | ------ | ----------------------- | ------------------------------------- | ------------------------------------------ |
 | **1**  | **Setup & Hygiene**     | ✅ **DONE**                           | ✅ **DONE**                                |
-| **2**  | **Dataset Collection**  | ✅ **Script Ready**                   | ⏳ **PENDING (Waiting for User Download)** |
-| **3**  | **Preprocessing**       | ✅ **DONE** (`preprocessor.py`)       | ⏳ _Ready to run_                          |
-| **4**  | **Feature Extraction**  | ✅ **DONE** (`mfcc_extractor.py`)     | ⏳ _Ready to run_                          |
-| **5**  | **Language ID**         | ✅ **DONE** (`src/language_id`)       | ⏳ _Ready to train_                        |
-| **6**  | **Dataset Prep**        | ✅ **DONE** (`prepare_data.py`)       | ⏳ _Ready to run_                          |
-| **7**  | **Acoustic Model (EN)** | ✅ **DONE** (`src/acoustic_model`)    | ⏳ _Ready to train_                        |
-| **8**  | **Acoustic Model (HI)** | ✅ **DONE** (`src/acoustic_model`)    | ⏳ _Ready to train_                        |
-| **9**  | **Acoustic Model (OR)** | ✅ **DONE** (`src/acoustic_model`)    | ⏳ _Ready to train_                        |
-| **10** | **Decoder & LM**        | ✅ **DONE** (`src/decoder`, `src/lm`) | ⏳ _Ready to train_                        |
-| **11** | **Integration**         | ✅ **DONE** (`inference.py`)          | ⏳ _Ready to test_                         |
-| **12** | **UI & Final Polish**   | ✅ **DONE** (`ui/app.py`)             | ⏳ _Ready to launch_                       |
+| **2**  | **Dataset Collection**  | ✅ **Script Ready**                   | 🟡 **Mock Data Ready / Real Data Pending** |
+| **3**  | **Preprocessing**       | ✅ **DONE** (`preprocessor.py`)       | ✅ **DONE**                                |
+| **4**  | **Feature Extraction**  | ✅ **DONE** (`mfcc_extractor.py`)     | ✅ **DONE**                                |
+| **5**  | **Language ID**         | ✅ **DONE** (`src/language_id`)       | ✅ **Trained (Mock)**                      |
+| **6**  | **Dataset Prep**        | ✅ **DONE** (`prepare_data.py`)       | ✅ **DONE**                                |
+| **7**  | **Acoustic Model (EN)** | ✅ **DONE** (`src/acoustic_model`)    | ✅ **Trained (Mock)**                      |
+| **8**  | **Acoustic Model (HI)** | ✅ **DONE** (`src/acoustic_model`)    | ✅ **Trained (Mock)**                      |
+| **9**  | **Acoustic Model (OR)** | ✅ **DONE** (`src/acoustic_model`)    | ✅ **Trained (Mock)**                      |
+| **10** | **Decoder & LM**        | ✅ **DONE** (`src/decoder`, `src/lm`) | ✅ **Trained (Mock)**                      |
+| **11** | **Integration**         | ✅ **DONE** (`inference.py`)          | ✅ **Verified**                            |
+| **12** | **UI & Final Polish**   | ✅ **DONE** (`ui/app.py`)             | ✅ **Ready to launch**                     |
 
 ---
 
@@ -48,27 +48,28 @@ _This is the "Hustle" phase. Speed depends on internet speed and GPU power._
 
 #### Step 1: Data (The Blocker)
 
-- [ ] **Action**: Download Datasets
+- [x] **Action**: Download Datasets
   - Run `python scripts/download_data.py` to see instructions.
-  - Manually download English, Hindi, and Odia files.
-  - Extract them to `data/raw/`.
+  - (Optional) Run `python scripts/generate_mock_data.py` for testing.
+  - Extract/Place files in `data/raw/`.
 
 #### Step 2: Processing
 
-- [ ] **Action**: Run Data Prep
+- [x] **Action**: Run Data Prep
   - Command: `python scripts/prepare_data.py`
   - _What it does_: Normalizes audio, extracts MFCCs, saves .npy files.
 
 #### Step 3: Training (The Grind)
 
-- [ ] **Action**: Train Language ID
+- [x] **Action**: Train Language ID
   - Command: `python -m src.language_id.train`
-- [ ] **Action**: Train Acoustic Models
+- [x] **Action**: Train Acoustic Models
   - English: `python -m src.acoustic_model.train --language english`
   - Hindi: `python -m src.acoustic_model.train --language hindi`
   - Odia: `python -m src.acoustic_model.train --language odia`
-- [ ] **Action**: Train Language Models
+- [x] **Action**: Train Language Models
   - All: `python -m src.language_model.train --language all`
+- [x] **Shortcut**: Run `python scripts/train_all.py` to do everything.
 
 ---
 
@@ -87,10 +88,11 @@ _Update this section as you train models._
 
 ## ⚠️ CURRENT BLOCKERS
 
-- **Missing Data**: The system is fully built but empty. Models cannot learn without the `.wav` files.
+- **Real Data**: The system is trained on mock data (sine waves). Accuracy is minimal until real datasets are downloaded and training is re-run.
 
 ## 🎯 NEXT ACTION
 
-1. **Download the data**.
+1. **Download real datasets** (see `docs/dataset_details.md`).
 2. Run `python scripts/prepare_data.py`.
-3. Start training.
+3. Run `python scripts/train_all.py`.
+4. Launch UI with `python ui/app.py`.
