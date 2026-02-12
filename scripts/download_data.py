@@ -14,33 +14,23 @@ logger = logging.getLogger(__name__)
 
 DATASETS = {
     'english': {
-        'common_voice': {
-            'url': 'https://commonvoice.mozilla.org/en/datasets',
-            'description': 'Mozilla Common Voice English',
+        'openslr': {
+            'url': 'https://www.openslr.org/12',
+            'description': 'LibriSpeech (OpenSLR) - Download "test-clean.tar.gz"',
             'manual': True
         }
     },
     'hindi': {
-        'common_voice': {
-            'url': 'https://commonvoice.mozilla.org/hi/datasets',
-            'description': 'Mozilla Common Voice Hindi',
-            'manual': True
-        },
-        'ai4bharat': {
-            'url': 'https://ai4bharat.org/datasets',
-            'description': 'AI4Bharat Hindi Dataset',
+        'openslr': {
+            'url': 'https://www.openslr.org/103',
+            'description': 'OpenSLR Indic (Hindi) - Download "Hindi_test.tar.gz"',
             'manual': True
         }
     },
     'odia': {
         'openslr': {
-            'url': 'https://www.openslr.org/resources/66/',
-            'description': 'OpenSLR Odia Corpus',
-            'manual': True
-        },
-        'ai4bharat': {
-            'url': 'https://ai4bharat.org/datasets',
-            'description': 'AI4Bharat Odia Dataset',
+            'url': 'https://www.openslr.org/103',
+            'description': 'OpenSLR Indic (Odia) - Download "Odia_test.tar.gz"',
             'manual': True
         }
     }

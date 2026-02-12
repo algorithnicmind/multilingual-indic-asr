@@ -12,14 +12,20 @@ This document describes the datasets used for training the Multilingual Indic AS
 
 #### Mozilla Common Voice (English)
 
-| Attribute           | Value                                                                  |
-| ------------------- | ---------------------------------------------------------------------- |
-| **Source**          | [commonvoice.mozilla.org](https://commonvoice.mozilla.org/en/datasets) |
-| **Version**         | CV Corpus 13.0                                                         |
-| **Total Hours**     | 2,500+ hours                                                           |
-| **Validated Hours** | ~2,000 hours                                                           |
-| **Speakers**        | 75,000+                                                                |
-| **License**         | CC-0 (Public Domain)                                                   |
+| Attribute        | Value                                      |
+| ---------------- | ------------------------------------------ |
+| **Source**       | [openslr.org](https://www.openslr.org/12/) |
+| **Dataset Name** | LibriSpeech (test-clean)                   |
+| **Size**         | ~350 MB                                    |
+| **License**      | CC BY 4.0                                  |
+
+**Download Instructions**:
+
+```bash
+# Go to: https://www.openslr.org/12/
+# Click "test-clean.tar.gz" (346MB)
+# Extract to data/raw/english/
+```
 
 **Download Instructions**:
 
@@ -35,31 +41,19 @@ This document describes the datasets used for training the Multilingual Indic AS
 
 #### Mozilla Common Voice (Hindi)
 
-| Attribute           | Value                                                                  |
-| ------------------- | ---------------------------------------------------------------------- |
-| **Source**          | [commonvoice.mozilla.org](https://commonvoice.mozilla.org/hi/datasets) |
-| **Version**         | CV Corpus 13.0                                                         |
-| **Total Hours**     | 15+ hours                                                              |
-| **Validated Hours** | ~10 hours                                                              |
-| **Speakers**        | 500+                                                                   |
-| **License**         | CC-0 (Public Domain)                                                   |
-
-#### AI4Bharat Hindi Dataset
-
-| Attribute        | Value                                  |
-| ---------------- | -------------------------------------- |
-| **Source**       | [ai4bharat.org](https://ai4bharat.org) |
-| **Dataset Name** | MUCS 2021 / IndicSUPERB                |
-| **Total Hours**  | 100+ hours                             |
-| **Speakers**     | Various                                |
-| **License**      | Research use                           |
+| Attribute        | Value                                           |
+| ---------------- | ----------------------------------------------- |
+| **Source**       | [openslr.org/103](https://www.openslr.org/103/) |
+| **Dataset Name** | IndicSpeech (Hindi)                             |
+| **File Name**    | Hindi_test.tar.gz                               |
+| **Size**         | ~100 MB                                         |
+| **License**      | CC BY-SA 4.0                                    |
 
 **Download Instructions**:
 
 ```bash
-# AI4Bharat datasets
-# Visit https://ai4bharat.org/datasets
-# Download Hindi speech corpus
+# Go to: https://www.openslr.org/103/
+# Click "Hindi_test.tar.gz"
 # Extract to data/raw/hindi/
 ```
 
@@ -69,29 +63,20 @@ This document describes the datasets used for training the Multilingual Indic AS
 
 #### AI4Bharat Odia Dataset
 
-| Attribute        | Value                                  |
-| ---------------- | -------------------------------------- |
-| **Source**       | [ai4bharat.org](https://ai4bharat.org) |
-| **Dataset Name** | IndicSUPERB Odia                       |
-| **Total Hours**  | 50+ hours                              |
-| **Speakers**     | Various                                |
-| **License**      | Research use                           |
-
-#### OpenSLR Indic Corpora
-
-| Attribute      | Value                              |
-| -------------- | ---------------------------------- |
-| **Source**     | [openslr.org](https://openslr.org) |
-| **Resource**   | SLR66 (Large Indic Languages)      |
-| **Odia Hours** | 5+ hours                           |
-| **License**    | CC BY-SA 4.0                       |
+| Attribute        | Value                                           |
+| ---------------- | ----------------------------------------------- |
+| **Source**       | [openslr.org/103](https://www.openslr.org/103/) |
+| **Dataset Name** | IndicSpeech (Odia)                              |
+| **File Name**    | Odia_test.tar.gz                                |
+| **Size**         | ~100 MB                                         |
+| **License**      | CC BY-SA 4.0                                    |
 
 **Download Instructions**:
 
 ```bash
-# OpenSLR resources
-wget https://www.openslr.org/resources/66/odia.tar.gz
-tar -xzf odia.tar.gz -C data/raw/odia/
+# Go to: https://www.openslr.org/103/
+# Click "Odia_test.tar.gz"
+# Extract to data/raw/odia/
 ```
 
 ---
