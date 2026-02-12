@@ -446,7 +446,7 @@ Detailed documentation is available in the `/docs` folder:
 - [x] **Phase 2**: Basic model training
 - [x] **Phase 3**: UI development
 - [ ] **Phase 4**: Optimization and evaluation
-- [ ] **Phase 5**: Real-time microphone support
+- [x] **Phase 5**: Real-time microphone support
 - [ ] **Phase 6**: Additional language support
 
 ---

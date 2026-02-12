@@ -7,6 +7,10 @@ from tkinter import ttk, filedialog, messagebox
 import threading
 from pathlib import Path
 import sys
+import sounddevice as sd
+import numpy as np
+import soundfile as sf
+import time
 
 # Add project root to path
 project_root = Path(__file__).parent.parent
@@ -55,6 +59,9 @@ class ASRApp:
         # Initialize pipeline
         self.pipeline = None
         self.current_file = None
+        self.is_recording = False
+        self.recording_data = []
+        self.stream = None
         
         # Build UI
         self._create_widgets()
@@ -116,6 +123,27 @@ class ASRApp:
             pady=5
         )
         self.browse_btn.pack(side=tk.RIGHT)
+        
+        self.browse_btn.pack(side=tk.RIGHT)
+        
+        # Recording frame
+        rec_frame = tk.Frame(main_frame, bg=self.bg_color)
+        rec_frame.pack(pady=10)
+        
+        self.record_btn = tk.Button(
+            rec_frame,
+            text="🔴 Record (Hold)",
+            font=("Helvetica", 12),
+            command=self._toggle_recording,
+            bg="#f38ba8",
+            fg="#1e1e2e",
+            activebackground="#eba0ac",
+            cursor="hand2",
+            relief=tk.FLAT,
+            padx=20,
+            pady=8
+        )
+        self.record_btn.pack()
         
         # Transcribe button
         self.transcribe_btn = tk.Button(
@@ -237,6 +265,48 @@ class ASRApp:
             self.file_label.config(text=f"📄 {filename}")
             self.transcribe_btn.config(state=tk.NORMAL)
             self.status_var.set(f"Selected: {filename}")
+            
+    def _toggle_recording(self):
+        """Toggle recording state."""
+        if not self.is_recording:
+            # Start recording
+            self.is_recording = True
+            self.record_btn.config(text="⏹️ Stop Recording", bg="#fab387")
+            self.status_var.set("Recording... Speak now")
+            self.recording_data = []
+            
+            # Start stream
+            self.stream = sd.InputStream(callback=self._audio_callback, channels=1, samplerate=16000)
+            self.stream.start()
+            
+        else:
+            # Stop recording
+            self.is_recording = False
+            self.record_btn.config(text="🔴 Record", bg="#f38ba8")
+            self.status_var.set("Recording stopped")
+            
+            if self.stream:
+                self.stream.stop()
+                self.stream.close()
+            
+            # Save recorded audio
+            if len(self.recording_data) > 0:
+                audio_data = np.concatenate(self.recording_data, axis=0)
+                output_path = "temp_recording.wav"
+                sf.write(output_path, audio_data, 16000)
+                
+                self.current_file = output_path
+                self.file_label.config(text="📄 temp_recording.wav")
+                self.transcribe_btn.config(state=tk.NORMAL)
+                self.status_var.set("Recording saved. Ready to transcribe.")
+            else:
+                messagebox.showwarning("Warning", "No audio recorded")
+    
+    def _audio_callback(self, indata, frames, time, status):
+        """Callback for audio stream."""
+        if status:
+            print(status)
+        self.recording_data.append(indata.copy())
     
     def _transcribe(self):
         """Start transcription in background thread."""
