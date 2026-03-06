@@ -390,10 +390,19 @@ class ASRApp:
 
 def run_app():
     """Run the ASR application."""
-    root = tk.Tk()
-    app = ASRApp(root)
-    root.mainloop()
+    print("Initializing UI...", flush=True)
+    try:
+        root = tk.Tk()
+        print("Tkinter root created.", flush=True)
+        app = ASRApp(root)
+        print("App initialized, starting mainloop...", flush=True)
+        root.mainloop()
+    except Exception as e:
+        print(f"CRITICAL UI ERROR: {e}", flush=True)
+        import traceback
+        traceback.print_exc()
 
 
 if __name__ == "__main__":
+    print("Starting app...", flush=True)
     run_app()

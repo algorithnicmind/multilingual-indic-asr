@@ -112,7 +112,18 @@ def collate_fn(batch):
     }
 
 
-def train_acoustic_model(language: str, epochs: int = 50, batch_size: int = 16):
+import yaml
+
+def load_config():
+    with open('config.yaml', 'r') as f:
+        return yaml.safe_load(f)
+
+def train_acoustic_model(language: str, epochs: int = None, batch_size: int = None):
+    config = load_config()
+    if epochs is None:
+        epochs = config['acoustic_model']['training']['epochs']
+    if batch_size is None:
+        batch_size = config['acoustic_model']['training']['batch_size']
     """Train acoustic model for a language."""
     logger.info(f"Training acoustic model for {language}")
     
@@ -141,13 +152,24 @@ def train_acoustic_model(language: str, epochs: int = 50, batch_size: int = 16):
     
     # Create model
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    
+    model_dir = Path('models/acoustic') / language
+    model_path = model_dir / 'model.pt'
+    
     model = AcousticModel(
         input_dim=39,
-        hidden_dim=256,
-        num_lstm_layers=3,
+        hidden_dim=64, # Matches new config
+        num_lstm_layers=1, # Matches new config
         vocab_size=vocab_size,
-        dropout=0.3
+        dropout=0.1
     ).to(device)
+    
+    if model_path.exists():
+        logger.info(f"Resuming from checkpoint: {model_path}")
+        try:
+             model.load_state_dict(torch.load(model_path, map_location=device))
+        except Exception as e:
+             logger.warning(f"Could not load checkpoint (might be architecture mismatch): {e}")
     
     # Loss and optimizer
     criterion = CTCLoss()

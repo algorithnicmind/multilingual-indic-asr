@@ -82,7 +82,10 @@ def process_language(language: str, config: dict):
     feature_extractor = MFCCExtractor(config)
     
     # Get audio files
-    audio_files = list(clips_dir.glob('*.wav'))
+    audio_files = []
+    audio_files.extend(list(clips_dir.glob('*.wav')))
+    audio_files.extend(list(clips_dir.glob('*.flac')))
+    audio_files.extend(list(clips_dir.glob('*.mp3')))
     logger.info(f"Found {len(audio_files)} audio files")
     
     if not audio_files:

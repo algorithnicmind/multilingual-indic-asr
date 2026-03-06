@@ -457,6 +457,11 @@ multilingual-indic-asr/
 ├── tests/                       # Unit tests
 ├── notebooks/                   # Jupyter notebooks
 ├── scripts/                     # Utility scripts
+│   ├── download_data.py
+│   ├── organize_dataset.py     # Dataset organization
+│   ├── fix_tsv.py              # TSV formatting fixes
+│   ├── prepare_data.py
+│   └── train_all.py            # Unified training script
 └── docs/                        # Documentation
 ```
 

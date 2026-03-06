@@ -292,10 +292,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. **Download datasets**
+4. **Download & Organize Datasets**
+   - Download datasets manually or using `scripts/download_data.py`.
+   - Place them in `data/raw/<language>/`.
+   - Run the organization script:
 
 ```bash
-python scripts/download_data.py
+python scripts/organize_dataset.py
 ```
 
 5. **Prepare data**
@@ -304,33 +307,36 @@ python scripts/download_data.py
 python scripts/prepare_data.py
 ```
 
+6. **Train the models**
+
+```bash
+python scripts/train_all.py
+```
+
 ---
 
 ## 🚀 Usage
 
 ### Training
 
-#### Train Language Identification Model
+#### Train All Models (Recommended)
 
 ```bash
-python -m src.language_id.train
+python scripts/train_all.py
 ```
 
-#### Train Acoustic Models
+#### Train Individual Components (Advanced)
 
 ```bash
-# Train all languages
-python -m src.acoustic_model.train --language all
+# Language Identification
+python -m src.language_id.train
 
-# Train specific language
+# Acoustic Models
 python -m src.acoustic_model.train --language english
 python -m src.acoustic_model.train --language hindi
 python -m src.acoustic_model.train --language odia
-```
 
-#### Train Language Models
-
-```bash
+# Language Models
 python -m src.language_model.ngram --language all
 ```
 

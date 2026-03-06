@@ -87,27 +87,23 @@ This document describes the datasets used for training the Multilingual Indic AS
 
 ```
 data/
-├── raw/                          # Original downloaded data
+├── raw/                          # Original downloaded & organized data
 │   ├── english/
-│   │   ├── clips/               # Audio files
+│   │   ├── clips/               # All audio files flattened here
 │   │   │   ├── sample_001.wav
-│   │   │   ├── sample_002.wav
+│   │   │   ├── sample_002.flac
 │   │   │   └── ...
-│   │   └── validated.tsv        # Metadata & transcripts
+│   │   └── validated.tsv        # Unified metadata & transcripts
 │   │
 │   ├── hindi/
 │   │   ├── clips/
-│   │   │   ├── sample_001.wav
-│   │   │   └── ...
 │   │   └── validated.tsv
 │   │
 │   └── odia/
 │       ├── clips/
-│       │   ├── sample_001.wav
-│       │   └── ...
 │       └── validated.tsv
 │
-├── processed/                    # Preprocessed audio
+├── processed/                    # Preprocessed audio (16kHz, mono)
 │   ├── english/
 │   │   ├── train/
 │   │   ├── val/
@@ -146,7 +142,15 @@ def456	clips/sample_002.wav	Good morning	3	0	thirties	female	uk
 
 ## 🔧 Data Preprocessing
 
-### Step 1: Audio Validation
+### Step 1: Dataset Organization
+
+The `scripts/organize_dataset.py` script is used to flatten nested directory structures often found in downloaded datasets (like LibriSpeech or OpenSLR) into a standardized format.
+
+- Finds all audio files recursively (`.wav`, `.flac`, `.mp3`)
+- Moves them to `data/raw/<language>/clips/`
+- Consolidates all transcripts into `data/raw/<language>/validated.tsv`
+
+### Step 2: Audio Validation
 
 ```python
 def validate_audio(audio_path):
@@ -172,7 +176,7 @@ def validate_audio(audio_path):
     return True, "Valid"
 ```
 
-### Step 2: Audio Standardization
+### Step 3: Audio Standardization
 
 ```python
 def standardize_audio(audio_path, output_path):
@@ -193,7 +197,7 @@ def standardize_audio(audio_path, output_path):
     sf.write(output_path, audio, 16000)
 ```
 
-### Step 3: Text Normalization
+### Step 4: Text Normalization
 
 #### English
 
@@ -233,7 +237,7 @@ def normalize_odia(text):
     return text
 ```
 
-### Step 4: Train/Val/Test Split
+### Step 5: Train/Val/Test Split
 
 ```python
 def create_splits(data, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1):
