@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndicVoice | Multilingual ASR</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="app-container">
+        <header>
+            <div class="logo">
+                <span class="logo-icon">🎙️</span>
+                <h1>Indic<span>Voice</span></h1>
+            </div>
+            <p class="tagline">Real-time Speech Recognition for English, Hindi & Odia</p>
+        </header>
+
+        <section class="recorder-section">
+            <div class="visualizer-container">
+                <canvas id="visualizer"></canvas>
+            </div>
+            
+            <div class="controls">
+                <button id="record-btn" class="record-btn">
+                    <div class="pulse"></div>
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <p id="status-text">Click to start speaking</p>
+            </div>
+        </section>
+
+        <section class="results-section">
+            <div class="result-card glass">
+                <div class="card-header">
+                    <h3>Detection Result</h3>
+                    <div id="language-badge" class="badge hidden">English</div>
+                </div>
+                <div class="transcript-box">
+                    <p id="transcript">Your transcription will appear here...</p>
+                </div>
+                <div class="card-footer">
+                    <span id="confidence">Confidence: --</span>
+                    <button id="copy-btn" class="icon-btn"><i class="far fa-copy"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 IndicVoice ASR System. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
