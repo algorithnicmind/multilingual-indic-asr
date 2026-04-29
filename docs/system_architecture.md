@@ -8,7 +8,7 @@ This document provides a comprehensive view of the Multilingual Indic ASR system
 
 ## 🏗️ High-Level Architecture
 
-```
+```text
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                            USER INTERFACE                                     │
 │                     (Upload Audio / Record / Display Results)                 │
@@ -42,7 +42,7 @@ This document provides a comprehensive view of the Multilingual Indic ASR system
 
 ## 📊 Data Flow Diagram
 
-```
+```text
                     ┌─────────────────┐
                     │   Audio Input   │
                     │   (.wav file)   │
@@ -150,7 +150,7 @@ class AudioPreprocessor:
 
 **Input/Output**:
 
-```
+```text
 Input:  Raw WAV file (any sample rate, mono/stereo)
 Output: NumPy array [samples] @ 16kHz, normalized
 ```
@@ -184,7 +184,7 @@ class MFCCExtractor:
 
 **Output Dimensions**:
 
-```
+```text
 13 MFCCs + 13 Deltas + 13 Delta-Deltas = 39 features per frame
 Frame rate: 100 frames/second (10ms hop)
 ```
@@ -199,7 +199,7 @@ Frame rate: 100 frames/second (10ms hop)
 
 #### Option A: SVM Classifier
 
-```
+```text
 ┌─────────────┐
 │   MFCCs     │
 │  [T × 39]   │
@@ -221,7 +221,7 @@ Frame rate: 100 frames/second (10ms hop)
 
 #### Option B: Neural Network
 
-```
+```text
 ┌─────────────┐
 │   MFCCs     │
 │  [T × 39]   │
@@ -248,7 +248,7 @@ Frame rate: 100 frames/second (10ms hop)
 
 **Architecture**: CNN + BiLSTM + CTC
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                    ACOUSTIC MODEL                        │
 │                                                         │
@@ -296,7 +296,7 @@ Frame rate: 100 frames/second (10ms hop)
 
 **Architecture**: N-gram with Kneser-Ney Smoothing
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                    LANGUAGE MODEL                        │
 │                                                         │
@@ -327,7 +327,7 @@ Frame rate: 100 frames/second (10ms hop)
 
 **Algorithm**: Beam Search with LM Integration
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                      DECODER                             │
 │                                                         │
@@ -361,7 +361,7 @@ Frame rate: 100 frames/second (10ms hop)
 
 ## 🔄 Training Pipeline
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                           TRAINING PIPELINE                                  │
 │                                                                             │
@@ -402,7 +402,7 @@ Frame rate: 100 frames/second (10ms hop)
 
 ## 📁 Directory Structure
 
-```
+```text
 multilingual-indic-asr/
 │
 ├── src/

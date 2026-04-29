@@ -85,7 +85,7 @@ This document describes the datasets used for training the Multilingual Indic AS
 
 ### Directory Organization
 
-```
+```text
 data/
 ├── raw/                          # Original downloaded & organized data
 │   ├── english/
@@ -132,10 +132,10 @@ data/
 
 ### Metadata Format (TSV)
 
-```
-client_id	path	sentence	up_votes	down_votes	age	gender	accent
-abc123	clips/sample_001.wav	Hello world	5	0	twenties	male	us
-def456	clips/sample_002.wav	Good morning	3	0	thirties	female	uk
+```text
+client_id    path    sentence    up_votes    down_votes    age    gender    accent
+abc123    clips/sample_001.wav    Hello world    5    0    twenties    male    us
+def456    clips/sample_002.wav    Good morning    3    0    thirties    female    uk
 ```
 
 ---
@@ -199,7 +199,7 @@ def standardize_audio(audio_path, output_path):
 
 ### Step 4: Text Normalization
 
-#### English
+#### English Normalization
 
 ```python
 def normalize_english(text):
@@ -226,7 +226,7 @@ def normalize_hindi(text):
     return text
 ```
 
-#### Odia
+#### Odia Normalization
 
 ```python
 def normalize_odia(text):
