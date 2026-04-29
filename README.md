@@ -39,7 +39,8 @@ This project implements a **complete Automatic Speech Recognition (ASR) pipeline
 | 🧠 **Acoustic Modeling**   | Separate CNN+BiLSTM models per language                           |
 | 📝 **Language Modeling**   | N-gram based language models for each language                    |
 | 🔤 **Decoding**            | Viterbi/Beam search for optimal transcription                     |
-| 🖥️ **User Interface**      | Simple UI for audio upload and transcription display              |
+| 🎤 **Real-time Input**     | Live microphone capture and processing                            |
+| 🖥️ **Premium UI**          | Modern HTML/CSS/JS frontend with Flask backend                    |
 
 ---
 
